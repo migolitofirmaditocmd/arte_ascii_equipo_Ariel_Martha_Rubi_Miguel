@@ -11,6 +11,14 @@ Fecha: Febrero 2026
 Universidad de Guadalajara - Campus GDL
 """
 
+import os
+
+
+HISTORIAL = []
+RUTA_BASE = os.path.dirname(__file__)
+RUTA_DATOS = os.path.join(RUTA_BASE,"datos")
+GALERIA_ARCHIVO = os.path.join(RUTA_BASE,"datos","galeria.txt")
+
 # ============================================
 # SECCIÓN 1: MENÚ PRINCIPAL (Estudiante 1)
 # ============================================
@@ -270,6 +278,44 @@ def menu_animaciones():
     # TODO: Implementar lógica del menú
 
     pass  # Reemplazar con su código
+
+# ============================================
+# ALMACENAMIENTO
+# ============================================
+
+def actualizar_historial(patron):
+    global HISTORIAL
+    HISTORIAL.append(patron)
+    return HISTORIAL
+
+def cargar_historial():
+    global HISTORIAL
+    with open(GALERIA_ARCHIVO,mode="r",encoding="utf-8") as f:
+        contenido = f.read()
+    if contenido == "":
+        return
+    patrones = contenido.split("=" * 40)
+    HISTORIAL = [p.strip("\n") for p in patrones if p.strip()]
+
+def mostrar_historial():
+    global HISTORIAL
+    print("GALERÍA DE PATRONES:\n")
+    for p in HISTORIAL:
+        print(p)
+        print("-" * 40)
+
+
+def almacenar_patrones():
+    global HISTORIAL
+    numero_patron = 1
+    if not os.path.isdir(RUTA_DATOS):
+        os.mkdir(RUTA_DATOS)
+    with open(GALERIA_ARCHIVO,mode="w",encoding="utf-8") as f:
+        for pieza in HISTORIAL:
+            f.write(f"Patron: {numero_patron}\n")
+            f.write(pieza)
+            f.write("=" * 40 + "\n")
+            numero_patron += 1
 
 
 # ============================================

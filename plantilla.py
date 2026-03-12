@@ -71,19 +71,19 @@ def triangulo(altura):
     Genera un triángulo de asteriscos de altura especificada.
 
     Args:
-        altura (int): Número de filas del triángulo
+        altura (int): Número de filas del triángulo.
+        
+    Returns:
+        str: El arte ASCII del triángulo generado con saltos de línea.
     """
-    # TODO: Implementar
+    # Inicializamos el string vacío para acumular el dibujo
+    resultado = ""
     # Usar un loop for con range(1, altura + 1)
-    # Cada fila debe tener i asteriscos
-    # Ejemplo: si altura=5
-    # *
-    # **
-    # ***
-    # ****
-    # *****
-
-    pass  # Reemplazar con su código
+    for i in range(1, altura + 1):
+        # Cada fila debe tener i asteriscos
+        resultado += "*" * i + "\n"
+    return resultado
+    pass  
 
 
 def cuadrado(lado):
@@ -91,41 +91,51 @@ def cuadrado(lado):
     Genera un cuadrado con bordes de tamaño especificado.
 
     Args:
-        lado (int): Tamaño del lado del cuadrado
+        lado (int): Tamaño del lado del cuadrado.
+        
+    Returns:
+        str: El arte ASCII del cuadrado hueco.
     """
-    # TODO: Implementar
+    # Caso base para evitar errores con tamaños menores a 1
+    if lado < 1: return ""
+    if lado == 1: return "*\n"
+    
     # - Primera fila: todos asteriscos o símbolos
+    superior = "*" * lado + "\n"
+    
     # - Filas del medio: símbolo, espacios, símbolo
+    medio = ""
+    for _ in range(lado - 2):
+        medio += "*" + " " * (lado - 2) + "*" + "\n"
+    
     # - Última fila: todos asteriscos o símbolos
-    # Ejemplo: cuadrado(5)
-    # *****
-    # *   *
-    # *   *
-    # *   *
-    # *****
+    inferior = "*" * lado + "\n"
+    
+    return superior + medio + inferior
 
-    pass  # Reemplazar con su código
-
+    pass  
 
 def piramide(altura):
-    """
+   """
     Genera una pirámide centrada de altura especificada.
 
     Args:
-        altura (int): Número de filas de la pirámide
+        altura (int): Número de filas de la pirámide.
+        
+    Returns:
+        str: El arte ASCII de la pirámide centrada.
     """
-    # TODO: Implementar
-    # Cada fila debe:
-    # - Tener espacios al inicio para centrar: (altura - i) espacios
-    # - Tener asteriscos: 2*i - 1 asteriscos
-    # Ejemplo: piramide(5)
-    #     *
-    #    ***
-    #   *****
-    #  *******
-    # *********
+    resultado = ""
+    # Iteramos por cada nivel de la pirámide
+    for i in range(1, altura + 1):
+        # - Tener espacios al inicio para centrar: (altura - i) espacios
+        espacios = " " * (altura - i)
+        # - Tener asteriscos: 2*i - 1 asteriscos
+        asteriscos = "*" * (2 * i - 1)
+        resultado += espacios + asteriscos + "\n"
+    return resultado
 
-    pass  # Reemplazar con su código
+    pass  
 
 
 def menu_patrones():

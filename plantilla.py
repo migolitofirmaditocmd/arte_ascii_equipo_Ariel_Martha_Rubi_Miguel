@@ -27,7 +27,7 @@ def mostrar_menu_principal():
     """Muestra el menú de la galería de arte ASCII"""
     print("\n" + "="*60)
     print("     🎨 GALERÍA DE ARTE ASCII v1.0 🎨")
-    print("     Creado por: [Nombres del equipo]")
+    print("     Creado por: Perla, Miguel, Ariel, Martha")
     print("="*60)
     print("\nGALERÍA:")
     print("1. Patrones Geométricos")
@@ -37,6 +37,29 @@ def mostrar_menu_principal():
     print("5. Tabla de Multiplicar Visual")
     print("6. Salir")
     print("-"*60)
+
+while True:
+    mostrar_menu_principal()
+    
+    opcion = input("Selecciona una opción: ")
+
+    if opcion == "1":
+        print("Mostrando Patrones Geométricos...")
+    elif opcion == "2":
+        print("Generador de Banner...")
+    elif opcion == "3":
+        print("Marcos Decorativos...")
+    elif opcion == "4":
+        print("Animaciones...")
+    elif opcion == "5":
+        print("Tabla de Multiplicar Visual...")
+    elif opcion == "6":
+        print("Saliendo del programa...")
+        break
+    else:
+        print("Opción no válida")
+
+    input("\nPresiona Enter para volver al menú...")
 
 
 # ============================================
@@ -354,23 +377,19 @@ def main():
         opcion = input("\nSeleccione una opción (1-6): ")
 
         if opcion == "1":
-            menu_patrones()
+            print("Mostrando Patrones Geométricos...")
         elif opcion == "2":
-            print("\n--- GENERADOR DE BANNER ---")
-            # TODO: Solicitar texto y generar banner
-            pass
+            print("Generador de Banner...")
         elif opcion == "3":
-            menu_texto_artistico()
+            print("Marcos Decorativos...")
         elif opcion == "4":
-            menu_animaciones()
+            print("Animaciones...")
         elif opcion == "5":
-            print("\n--- TABLA DE MULTIPLICAR VISUAL ---")
-            # TODO: Solicitar número y generar tabla
-            pass
+            print("Tabla de Multiplicar Visual...")
         elif opcion == "6":
             print("\n" + "="*60)
             print("  ¡Gracias por visitar la Galería de Arte ASCII!")
-            print("  Creado con ❤️  y código por: [Nombres del equipo]")
+            print("  Creado con ❤️  y código por: Perla, Miguel, Ariel, Martha")
             print("="*60)
             continuar = False
         else:
@@ -378,7 +397,7 @@ def main():
 
         if continuar and opcion != "6":
             pausar()
-
+        input("\nPresiona Enter para volver al menú...")
     print("\nPrograma terminado. ¡Hasta pronto! 🎨")
 
 

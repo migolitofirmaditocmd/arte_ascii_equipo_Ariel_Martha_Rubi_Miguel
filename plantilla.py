@@ -11,6 +11,14 @@ Fecha: Febrero 2026
 Universidad de Guadalajara - Campus GDL
 """
 
+import os
+
+
+HISTORIAL = []
+RUTA_BASE = os.path.dirname(__file__)
+RUTA_DATOS = os.path.join(RUTA_BASE,"datos")
+GALERIA_ARCHIVO = os.path.join(RUTA_BASE,"datos","galeria.txt")
+
 # ============================================
 # SECCIÓN 1: MENÚ PRINCIPAL (Estudiante 1)
 # ============================================
@@ -213,8 +221,8 @@ def crear_retraso(duracion):
     # Usar un loop for que no haga nada
     # Ejemplo: for _ in range(duracion * 100000):
     #              pass
-
-    pass  # Reemplazar con su código
+    for _ in range(duracion * 100000):
+        pass
 
 
 def barra_progreso():
@@ -234,7 +242,15 @@ def barra_progreso():
 
     # Pista: usar end="\r" en print para sobrescribir la misma línea
 
-    pass  # Reemplazar con su código
+    print("Procesando...")
+    total_bloques = 20
+    for porcentaje in range(0, 101, 5):
+        bloques_llenos = porcentaje * total_bloques // 100
+        bloques_vacios = total_bloques - bloques_llenos
+        barra = "[" + "■" * bloques_llenos + "-" * bloques_vacios + "]"
+        print(f"{barra} {porcentaje}%", end="\r")
+        crear_retraso(100)
+    print(f"[{'■' * 20}] 100% ¡Completo!")
 
 
 def animacion_texto_movil():
@@ -245,14 +261,10 @@ def animacion_texto_movil():
     # - En cada iteración, imprimir espacios + texto
     # - Incrementar los espacios para simular movimiento
     # - Limpiar la línea anterior con \r
-
-    # Ejemplo:
-    # ☆                (frame 1)
-    #  ☆               (frame 2)
-    #   ☆              (frame 3)
-    # ...
-
-    pass  # Reemplazar con su código
+    textito = str(input("Dame el texto a animar: "))
+    for espacios_vacios in range(0, 50):
+        print("0" * espacios_vacios + textito, end="\r")
+        crear_retraso(70)
 
 
 def menu_animaciones():
@@ -261,10 +273,49 @@ def menu_animaciones():
     print("1. Barra de Progreso")
     print("2. Texto en Movimiento")
     print("3. Volver al menú principal")
+    usuario = str(input("\nElige opcion"))
 
     # TODO: Implementar lógica del menú
 
     pass  # Reemplazar con su código
+
+# ============================================
+# ALMACENAMIENTO
+# ============================================
+
+def actualizar_historial(patron):
+    global HISTORIAL
+    HISTORIAL.append(patron)
+    return HISTORIAL
+
+def cargar_historial():
+    global HISTORIAL
+    with open(GALERIA_ARCHIVO,mode="r",encoding="utf-8") as f:
+        contenido = f.read()
+    if contenido == "":
+        return
+    patrones = contenido.split("=" * 40)
+    HISTORIAL = [p.strip("\n") for p in patrones if p.strip()]
+
+def mostrar_historial():
+    global HISTORIAL
+    print("GALERÍA DE PATRONES:\n")
+    for p in HISTORIAL:
+        print(p)
+        print("-" * 40)
+
+
+def almacenar_patrones():
+    global HISTORIAL
+    numero_patron = 1
+    if not os.path.isdir(RUTA_DATOS):
+        os.mkdir(RUTA_DATOS)
+    with open(GALERIA_ARCHIVO,mode="w",encoding="utf-8") as f:
+        for pieza in HISTORIAL:
+            f.write(f"Patron: {numero_patron}\n")
+            f.write(pieza)
+            f.write("=" * 40 + "\n")
+            numero_patron += 1
 
 
 # ============================================
@@ -290,9 +341,9 @@ def main():
     """Función principal del programa"""
 
     print("╔════════════════════════════════════════════════════════════╗")
-    print("║           ¡Bienvenido a la Galería de Arte ASCII!         ║")
+    print("║           ¡Bienvenido a la Galería de Arte ASCII!          ║")
     print("║                                                            ║")
-    print("║    Donde la creatividad se encuentra con la programación  ║")
+    print("║    Donde la creatividad se encuentra con la programación   ║")
     print("╚════════════════════════════════════════════════════════════╝")
 
     continuar = True

@@ -134,12 +134,15 @@ def menu_patrones():
                 # Llamar a la función correspondiente
                 if opcion == "1":
                     patron = triangulo(altura=tamano)
+                    print(patron)
                     actualizar_historial(patron=patron)
                 elif opcion == "2":
                     patron = cuadrado(lado=tamano)
+                    print(patron)
                     actualizar_historial(patron=patron)
                 elif opcion == "3":
                     patron = piramide(altura=tamano)
+                    print(patron)
                     actualizar_historial(patron=patron)
                 # Preguntar si desea ver otro patrón
                 continuar = input("\n¿Desea ver otro patrón? (s/n): ").lower()
@@ -235,6 +238,7 @@ def menu_texto_artistico():
         if opcion == "1":
             txt = input("Ingrese el texto para su banner: ")
             patron = generar_banner(txt)
+            print(patron)
             actualizar_historial(patron=patron)
             
         elif opcion == "2":
@@ -242,12 +246,14 @@ def menu_texto_artistico():
             print("Estilos: 1 (Elegante ═), 2 (Estrellas ★)")
             est = int(input("Elija estilo: "))
             patron = marco_decorativo(txt, est)
+            print(patron)
             actualizar_historial(patron=patron)
             
         elif opcion == "3":
             try:
                 num = int(input("¿De qué número desea la tabla? (1-10): "))
                 patron = tabla_multiplicar_visual(num)
+                print(patron)
                 actualizar_historial(patron=patron)
             except ValueError:
                 print("Por favor, ingrese un número válido.")
@@ -315,8 +321,16 @@ def animacion_texto_movil():
     # - Incrementar los espacios para simular movimiento
     # - Limpiar la línea anterior con \r
     textito = str(input("Dame el texto a animar: "))
-    for espacios_vacios in range(0, 50):
-        print("0" * espacios_vacios + textito, end="\r")
+    verificador = True
+    while verificador:
+        try:
+            movimiento = int(input("¿Cuanto tiene que moverse? "))
+            verificador = False
+        except ValueError:
+            print("Valores no validos")
+
+    for espacios_vacios in range(0, movimiento + 1):
+        print(" " * espacios_vacios + textito, end="\r")
         crear_retraso(70)
 
 
@@ -355,14 +369,30 @@ def cargar_historial():
     with open(GALERIA_ARCHIVO,mode="r",encoding="utf-8") as f:
         contenido = f.read()
         if contenido == "":
-            print("No existe")
             return
     patrones = contenido.split("=" * 40)
-    HISTORIAL = [p.strip("\n") for p in patrones if p.strip()]
+
+    limpio = []
+
+    for p in patrones:
+        lineas = p.strip().split("\n")
+
+        # eliminar la línea "Patron: n"
+        if lineas and lineas[0].startswith("Patron"):
+            lineas = lineas[1:]
+
+        limpio.append("\n".join(lineas))
+
+    HISTORIAL = [p for p in limpio if p.strip()]
+
+
 
 def mostrar_historial():
     global HISTORIAL
     print("GALERÍA DE PATRONES:\n")
+    if HISTORIAL == []:
+        print("No existe")
+        return
     for p in HISTORIAL:
         print(p)
         print("-" * 40)
@@ -430,6 +460,7 @@ def main():
             print("Galeria...")
             mostrar_historial()
         elif opcion == "5":
+            almacenar_patrones()
             print("\n" + "="*60)
             print("  ¡Gracias por visitar la Galería de Arte ASCII!")
             print("  Creado con ❤️  y código por: Perla, Miguel, Ariel, Martha")

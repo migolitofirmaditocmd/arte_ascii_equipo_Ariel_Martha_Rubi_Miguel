@@ -32,35 +32,11 @@ def mostrar_menu_principal():
     print("="*60)
     print("\nGALERÍA:")
     print("1. Patrones Geométricos")
-    print("2. Generador de Banner")
-    print("3. Marcos Decorativos")
-    print("4. Animaciones")
-    print("5. Tabla de Multiplicar Visual")
-    print("6. Salir")
+    print("2. Generador de texto artisticos")
+    print("3. Animaciones")
+    print("4. Mostrar galeria")
+    print("5. Salir")
     print("-"*60)
-
-while True:
-    mostrar_menu_principal()
-    
-    opcion = input("Selecciona una opción: ")
-
-    if opcion == "1":
-        print("Mostrando Patrones Geométricos...")
-    elif opcion == "2":
-        print("Generador de Banner...")
-    elif opcion == "3":
-        print("Marcos Decorativos...")
-    elif opcion == "4":
-        print("Animaciones...")
-    elif opcion == "5":
-        print("Tabla de Multiplicar Visual...")
-    elif opcion == "6":
-        print("Saliendo del programa...")
-        break
-    else:
-        print("Opción no válida")
-
-    input("\nPresiona Enter para volver al menú...")
 
 
 # ============================================
@@ -84,7 +60,6 @@ def triangulo(altura):
         # Cada fila debe tener i asteriscos
         resultado += "*" * i + "\n"
     return resultado
-    pass  
 
 
 def cuadrado(lado):
@@ -114,15 +89,14 @@ def cuadrado(lado):
     
     return superior + medio + inferior
 
-    pass  
 
 def piramide(altura):
-   """
+    """
     Genera una pirámide centrada de altura especificada.
 
     Args:
         altura (int): Número de filas de la pirámide.
-        
+
     Returns:
         str: El arte ASCII de la pirámide centrada.
     """
@@ -135,26 +109,6 @@ def piramide(altura):
         asteriscos = "*" * (2 * i - 1)
         resultado += espacios + asteriscos + "\n"
     return resultado
-
-    pass  
-
-
-def imprimir_triangulo(n):
-    """Dibuja un triángulo rectángulo de altura n."""
-    for i in range(1, n + 1):
-        print("*" * i)
-
-def imprimir_cuadrado(n):
-    """Dibuja un cuadrado de lado n."""
-    for i in range(n):
-        print("* " * n)
-
-def imprimir_piramide(n):
-    """Dibuja una pirámide centrada de altura n."""
-    for i in range(1, n + 1):
-        espacios = " " * (n - i)
-        asteriscos = "*" * (2 * i - 1)
-        print(espacios + asteriscos)
 
 def menu_patrones():
     """Menú para seleccionar patrones geométricos"""
@@ -179,12 +133,14 @@ def menu_patrones():
                 
                 # Llamar a la función correspondiente
                 if opcion == "1":
-                    imprimir_triangulo(tamano)
+                    patron = triangulo(altura=tamano)
+                    actualizar_historial(patron=patron)
                 elif opcion == "2":
-                    imprimir_cuadrado(tamano)
+                    patron = cuadrado(lado=tamano)
+                    actualizar_historial(patron=patron)
                 elif opcion == "3":
-                    imprimir_piramide(tamano)
-                
+                    patron = piramide(altura=tamano)
+                    actualizar_historial(patron=patron)
                 # Preguntar si desea ver otro patrón
                 continuar = input("\n¿Desea ver otro patrón? (s/n): ").lower()
                 if continuar != 's':
@@ -195,9 +151,6 @@ def menu_patrones():
         else:
             print("Opción no válida. Intente de nuevo.")
 
-# Para probar el menú directamente
-if __name__ == "__main__":
-    menu_patrones()
 
 
 # ============================================
@@ -205,54 +158,67 @@ if __name__ == "__main__":
 # ============================================
 
 def generar_banner(texto):
-    """Genera un banner con el texto ingresado."""
     linea = "═" * (len(texto) + 4)
-    print(f"╔{linea}╗")
-    print(f"║  {texto.upper()}  ║")
-    print(f"╚{linea}╝")
+
+    banner = (
+        f"╔{linea}╗\n"
+        f"║  {texto.upper()}  ║\n"
+        f"╚{linea}╝\n"
+    )
+
+    print(banner)
+    return banner
 
 
 def marco_decorativo(texto, estilo):
-    """
-    Crea un marco decorativo alrededor del texto.
-    Estilo 1: Elegante (═ ║)
-    Estilo 2: Estelar (★ ☆)
-    """
+
     largo = len(texto)
-    
+
     if estilo == 1:
-        print(f"╔{'═' * (largo + 4)}╗")
-        print(f"║  {texto}  ║")
-        print(f"╚{'═' * (largo + 4)}╝")
-    
+        marco = (
+            f"╔{'═' * (largo + 4)}╗\n"
+            f"║  {texto}  ║\n"
+            f"╚{'═' * (largo + 4)}╝\n"
+        )
+
     elif estilo == 2:
         borde = "★ ☆ " * ((largo // 4) + 2)
-        print(borde)
-        print(f"☆  {texto}  ★")
-        print(borde)
+        marco = (
+            f"{borde}\n"
+            f"☆  {texto}  ★\n"
+            f"{borde}\n"
+        )
     else:
-        print("Estilo no reconocido.")
+        marco = "Estilo no reconocido."
+
+    print(marco)
+    return marco
 
 
 def tabla_multiplicar_visual(numero):
     """Genera una tabla de multiplicar con formato visual atractivo."""
+
     titulo = f"TABLA DEL {numero}"
-    ancho_interno = 20  # Espacio suficiente para que se vea bien
-    
+    ancho_interno = 20
+
+    tabla = ""
+
     # 1. Crear encabezado decorativo
-    print(f"\n╔{'═' * (ancho_interno + 2)}╗")
-    print(f"║{titulo.center(ancho_interno + 2)}║")
-    print(f"╠{'═' * (ancho_interno + 2)}╣")
-    
-    # 2. Generar tabla del 1 al 10 y 3. Alinear números correctamente
+    tabla += f"\n╔{'═' * (ancho_interno + 2)}╗\n"
+    tabla += f"║{titulo.center(ancho_interno + 2)}║\n"
+    tabla += f"╠{'═' * (ancho_interno + 2)}╣\n"
+
+    # 2. Generar tabla del 1 al 10
     for i in range(1, 11):
         resultado = numero * i
-        # Usamos :2d para que el multiplicador y el resultado siempre ocupen el mismo espacio
         linea = f"{numero} x {i:>2} = {resultado:>3}"
-        print(f"║  {linea.center(ancho_interno)}  ║")
-    
-    # 4. Cerrar con pie decorativo
-    print(f"╚{'═' * (ancho_interno + 2)}╝")
+        tabla += f"║  {linea.center(ancho_interno)}  ║\n"
+
+    # 3. Cerrar con pie decorativo
+    tabla += f"╚{'═' * (ancho_interno + 2)}╝\n"
+
+    print(tabla)
+    return tabla
 
 
 def menu_texto_artistico():
@@ -268,18 +234,21 @@ def menu_texto_artistico():
 
         if opcion == "1":
             txt = input("Ingrese el texto para su banner: ")
-            generar_banner(txt)
+            patron = generar_banner(txt)
+            actualizar_historial(patron=patron)
             
         elif opcion == "2":
             txt = input("Ingrese el texto a enmarcar: ")
             print("Estilos: 1 (Elegante ═), 2 (Estrellas ★)")
             est = int(input("Elija estilo: "))
-            marco_decorativo(txt, est)
+            patron = marco_decorativo(txt, est)
+            actualizar_historial(patron=patron)
             
         elif opcion == "3":
             try:
                 num = int(input("¿De qué número desea la tabla? (1-10): "))
-                tabla_multiplicar_visual(num)
+                patron = tabla_multiplicar_visual(num)
+                actualizar_historial(patron=patron)
             except ValueError:
                 print("Por favor, ingrese un número válido.")
                 
@@ -288,10 +257,6 @@ def menu_texto_artistico():
             break
         else:
             print("Opción inválida.")
-
-# Ejecución del programa
-if __name__ == "__main__":
-    menu_texto_artistico()
 
 
 # ============================================
@@ -356,16 +321,23 @@ def animacion_texto_movil():
 
 
 def menu_animaciones():
-    """Menú para animaciones"""
-    print("\n--- ANIMACIONES ---")
-    print("1. Barra de Progreso")
-    print("2. Texto en Movimiento")
-    print("3. Volver al menú principal")
-    usuario = str(input("\nElige opcion"))
-
-    # TODO: Implementar lógica del menú
-
-    pass  # Reemplazar con su código
+    while True:
+        """Menú para animaciones"""
+        print("\n--- ANIMACIONES ---")
+        print("1. Barra de Progreso")
+        print("2. Texto en Movimiento")
+        print("3. Volver al menú principal")
+        usuario = str(input("\nElige opcion"))
+        if usuario == "1":
+            print("Generando barra de progreso")
+            barra_progreso()
+        elif usuario == "2":
+            print("Generando animación")
+            animacion_texto_movil()
+        elif usuario == "3":
+            return
+        else:
+            print("Esa opcion no se encuentra disponible")
 
 # ============================================
 # ALMACENAMIENTO
@@ -378,10 +350,13 @@ def actualizar_historial(patron):
 
 def cargar_historial():
     global HISTORIAL
+    if not os.path.exists(GALERIA_ARCHIVO):
+        return
     with open(GALERIA_ARCHIVO,mode="r",encoding="utf-8") as f:
         contenido = f.read()
-    if contenido == "":
-        return
+        if contenido == "":
+            print("No existe")
+            return
     patrones = contenido.split("=" * 40)
     HISTORIAL = [p.strip("\n") for p in patrones if p.strip()]
 
@@ -435,6 +410,7 @@ def main():
     print("╚════════════════════════════════════════════════════════════╝")
 
     continuar = True
+    cargar_historial()
 
     while continuar:
         mostrar_menu_principal()
@@ -443,15 +419,17 @@ def main():
 
         if opcion == "1":
             print("Mostrando Patrones Geométricos...")
+            menu_patrones()
         elif opcion == "2":
-            print("Generador de Banner...")
+            print("Generador de texto artistico y tabla de multiplicar...")
+            menu_texto_artistico()
         elif opcion == "3":
-            print("Marcos Decorativos...")
-        elif opcion == "4":
             print("Animaciones...")
+            menu_animaciones()
+        elif opcion == "4":
+            print("Galeria...")
+            mostrar_historial()
         elif opcion == "5":
-            print("Tabla de Multiplicar Visual...")
-        elif opcion == "6":
             print("\n" + "="*60)
             print("  ¡Gracias por visitar la Galería de Arte ASCII!")
             print("  Creado con ❤️  y código por: Perla, Miguel, Ariel, Martha")
@@ -462,7 +440,6 @@ def main():
 
         if continuar and opcion != "6":
             pausar()
-        input("\nPresiona Enter para volver al menú...")
     print("\nPrograma terminado. ¡Hasta pronto! 🎨")
 
 

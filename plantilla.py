@@ -111,7 +111,17 @@ def piramide(altura):
     return resultado
 
 def menu_patrones():
-    """Menú para seleccionar patrones geométricos"""
+    """
+    Muestra un menú interactivo para generar patrones geométricos.
+
+    Permite al usuario seleccionar entre diferentes figuras ASCII
+    (triángulo, cuadrado o pirámide), solicitar el tamaño del patrón
+    y mostrar el resultado en pantalla. Cada patrón generado se
+    almacena en el historial de la galería.
+
+    El menú continúa ejecutándose hasta que el usuario decide
+    volver al menú principal.
+    """
     while True:
         print("\n--- PATRONES GEOMÉTRICOS ---")
         print("1. Triángulo")
@@ -161,6 +171,20 @@ def menu_patrones():
 # ============================================
 
 def generar_banner(texto):
+    """
+    Genera un banner decorativo con el texto proporcionado.
+
+    El texto se muestra en mayúsculas dentro de un marco ASCII
+    utilizando caracteres decorativos. El banner se imprime en
+    pantalla y también se devuelve como cadena para poder ser
+    guardado en el historial.
+
+    Args:
+        texto (str): Texto que aparecerá dentro del banner.
+
+    Returns:
+        str: Banner generado en formato ASCII.
+    """
     linea = "═" * (len(texto) + 4)
 
     banner = (
@@ -174,7 +198,21 @@ def generar_banner(texto):
 
 
 def marco_decorativo(texto, estilo):
+    """
+    Genera un marco decorativo alrededor de un texto.
 
+    Dependiendo del estilo seleccionado, el texto se muestra
+    dentro de diferentes tipos de bordes ASCII.
+
+    Args:
+        texto (str): Texto que se desea enmarcar.
+        estilo (int): Estilo del marco.
+            1 = Marco elegante con líneas.
+            2 = Marco decorativo con estrellas.
+
+    Returns:
+        str: Texto enmarcado en formato ASCII.
+    """
     largo = len(texto)
 
     if estilo == 1:
@@ -225,7 +263,16 @@ def tabla_multiplicar_visual(numero):
 
 
 def menu_texto_artistico():
-    """Menú para generadores de texto artístico"""
+    """
+    Muestra un menú para generar diferentes estilos de texto artístico.
+
+    El usuario puede crear banners, marcos decorativos o tablas de
+    multiplicar visuales. Cada resultado generado se muestra en
+    pantalla y se almacena en el historial de la galería.
+
+    El menú permanece activo hasta que el usuario decide regresar
+    al menú principal.
+    """
     while True:
         print("\n--- GENERADORES DE TEXTO ---")
         print("1. Crear Banner")
@@ -276,31 +323,12 @@ def crear_retraso(duracion):
     Args:
         duracion (int): Factor de duración (más alto = más lento)
     """
-    # TODO: Implementar retraso
-    # Usar un loop for que no haga nada
-    # Ejemplo: for _ in range(duracion * 100000):
-    #              pass
     for _ in range(duracion * 100000):
         pass
 
 
 def barra_progreso():
     """Muestra una barra de progreso animada"""
-    # TODO: Implementar barra de progreso
-    # - Usar un loop de 0 a 100
-    # - En cada iteración, mostrar la barra actualizada
-    # - Usar caracteres como █ ■ o # para la barra llena
-    # - Usar - o espacio para la parte vacía
-    # - Mostrar el porcentaje
-
-    # Ejemplo de salida:
-    # Procesando...
-    # [■■■■■■■■■■----------] 50%
-    # [■■■■■■■■■■■■■■■■----] 80%
-    # [■■■■■■■■■■■■■■■■■■■■] 100% ¡Completo!
-
-    # Pista: usar end="\r" en print para sobrescribir la misma línea
-
     print("Procesando...")
     total_bloques = 20
     for porcentaje in range(0, 101, 5):
@@ -313,13 +341,17 @@ def barra_progreso():
 
 
 def animacion_texto_movil():
-    """Anima un texto moviéndose de izquierda a derecha"""
-    # TODO: Implementar animación de texto
-    # - Definir el texto a animar
-    # - Usar un loop para cada posición
-    # - En cada iteración, imprimir espacios + texto
-    # - Incrementar los espacios para simular movimiento
-    # - Limpiar la línea anterior con \r
+    """
+    Crea una animación de texto moviéndose horizontalmente.
+
+    El usuario introduce el texto que desea animar y la distancia
+    de movimiento. El programa imprime el texto desplazándose hacia
+    la derecha mediante la impresión de espacios progresivos y el
+    uso de retorno de carro para actualizar la misma línea.
+
+    Returns:
+    None
+    """
     textito = str(input("Dame el texto a animar: "))
     verificador = True
     while verificador:
@@ -335,6 +367,14 @@ def animacion_texto_movil():
 
 
 def menu_animaciones():
+    """
+    Muestra un menú interactivo para ejecutar animaciones ASCII.
+
+    Permite seleccionar entre diferentes animaciones disponibles,
+    como una barra de progreso o texto en movimiento. El usuario
+    puede ejecutar animaciones repetidamente hasta decidir regresar
+    al menú principal.
+    """
     while True:
         """Menú para animaciones"""
         print("\n--- ANIMACIONES ---")
@@ -358,11 +398,30 @@ def menu_animaciones():
 # ============================================
 
 def actualizar_historial(patron):
+    """
+    Agrega un nuevo patrón ASCII al historial de la galería.
+
+    Args:
+        patron (str): Representación del arte ASCII generado.
+
+    Returns:
+        list: Lista actualizada del historial de patrones.
+    """
     global HISTORIAL
     HISTORIAL.append(patron)
     return HISTORIAL
 
 def cargar_historial():
+    """
+    Muestra todos los patrones almacenados en la galería.
+
+    Recorre la lista HISTORIAL e imprime cada patrón ASCII
+    en pantalla separado por líneas divisorias para facilitar
+    su lectura.
+
+    Returns:
+        None
+    """
     global HISTORIAL
     if not os.path.exists(GALERIA_ARCHIVO):
         return
@@ -388,6 +447,16 @@ def cargar_historial():
 
 
 def mostrar_historial():
+    """
+    Muestra todos los patrones almacenados en la galería.
+
+    Recorre la lista HISTORIAL e imprime cada patrón ASCII
+    en pantalla separado por líneas divisorias para facilitar
+    su lectura.
+
+    Returns:
+        None
+    """
     global HISTORIAL
     print("GALERÍA DE PATRONES:\n")
     if HISTORIAL == []:
@@ -399,6 +468,16 @@ def mostrar_historial():
 
 
 def almacenar_patrones():
+    """
+    Guarda todos los patrones del historial en un archivo.
+
+    Cada patrón se escribe en el archivo de galería con una
+    numeración consecutiva y un separador visual para facilitar
+    su lectura cuando se cargue posteriormente.
+
+    Returns:
+        None
+    """
     global HISTORIAL
     numero_patron = 1
     if not os.path.isdir(RUTA_DATOS):
@@ -416,13 +495,30 @@ def almacenar_patrones():
 # ============================================
 
 def limpiar_pantalla_simple():
-    """Imprime líneas en blanco para simular limpieza de pantalla"""
+    """
+    Simula la limpieza de la pantalla en la consola.
+
+    Imprime múltiples saltos de línea para desplazar el
+    contenido anterior fuera del área visible de la terminal.
+
+    Returns:
+        None
+    """
     # No usamos os.system() porque no está en los módulos 1-6
     print("\n" * 50)
 
 
 def pausar():
-    """Pausa hasta que el usuario presione Enter"""
+    """
+    Detiene temporalmente la ejecución del programa.
+
+    Espera a que el usuario presione la tecla Enter antes
+    de continuar, permitiendo que el usuario lea la salida
+    mostrada en pantalla.
+
+    Returns:
+    None
+    """
     input("\nPresione Enter para continuar...")
 
 
